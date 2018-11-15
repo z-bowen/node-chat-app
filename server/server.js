@@ -14,12 +14,12 @@ var io = socketIO(server);
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
-  console.log('New user connected');
+  console.log('Someone else hates Shauna too!');
 
   // socket.emit from Admin text: welcome to the chat
-  socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat!'));
+  socket.emit('newMessage', generateMessage('Admin', 'Let\'s mock Shauna!'));
   // socket.broadcast.emit from Admin text: new user joined
-  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user joined the chat'));
+  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user is here to mock Shauna!'));
 
   socket.on('createMessage', (message, callback) => {
     console.log(`New message from ${message.from}: ${message.text}`);
