@@ -4,21 +4,29 @@
 
 <head>
   <meta charset="utf-8">
+  <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 
-<body>
-  <p>Shauna is the worst. Let's discuss how!</p>
+<body class="chat">
+  <!-- <p>Shauna is the worst. Let's discuss how!</p> -->
 
-  <ol id="messages"></ol>
+  <div class="chat__sidebar">
+    <h3>Who's Mocking Shauna?</h3>
+    <div id="users"></div>
+  </div>
 
-  <form id="message-form">
-    <input name="message" type="text" placeholder="Shauna sucks!"/>
-    <button>Send</button>
-  </form>
-  <p>
-    Post your location and...
-  </p>
-  <button id="send-location">Mock Shauna in Person!</button>
+  <div class="chat__main">
+    <ol id="messages" class="chat__messages"></ol>
+
+    <div class="chat__footer">
+      <form id="message-form">
+        <input name="message" type="text" placeholder="Shauna sucks!" autofocus autocomplete="off"/>
+        <button>Mock Shauna!</button>
+      </form>
+      <button id="send-location">Mock Shauna in Person!</button>
+    </div>
+  </div>
+
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/libs/jquery-3.3.1.min.js"></script>
