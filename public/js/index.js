@@ -1,5 +1,21 @@
 var socket = io();
 
+function scrollToBottom () {
+  // Selectors
+  var messages = jQuery('#messages');
+  var newMessage = messages.children('li:last-child');
+  // Heights
+  var clientHeight = messages.prop('clientHeight');
+  var scrollTop = messages.prop('scrollTop');
+  var scrollHeight = messages.prop('scrollHeight');
+  var newMessageHeight = newMessage.innerHeight();
+  var lastMessageHeight = newMessage.prev().innerHeight();
+
+  if (scrollTop + clientHeight + newMessageHeight + lastMessageHeight >= scrollHeight) {
+    messages.scrollTop(scrollHeight);
+  };
+};
+
 socket.on('connect', function () {
   console.log('Connected to server');
 
@@ -16,13 +32,8 @@ socket.on('newMessage', function (message) {
   var html = Mustache.render(template, {from, text, time});
 
   jQuery('#messages').append(html);
-
-  // console.log(`New message from ${message.from} (${formattedTime}): ${message.text}`);
-  // var li = jQuery('<li></li>')
-  // li.text(`New message from ${message.from} (${formattedTime}): ${message.text}`)
-  // jQuery('#messages').append(li);
-
-})
+  scrollToBottom();
+});
 
 socket.on('newLocationMessage', function (message) {
   var template = jQuery('#location-template').html();
@@ -30,15 +41,9 @@ socket.on('newLocationMessage', function (message) {
   var {from, url} = message;
   var html = Mustache.render(template, {from, url, time});
 
-  // var li = jQuery('<li></li>');
-  // var a = jQuery('<a target="_blank">Meet me here to plot against Shauna!</a>');
-  // var formattedTime = moment(message.createdAt).format('h:mm a DD/MM/YY');
-  //
-  // li.text(`${message.from} (${formattedTime}): `);
-  // a.attr('href', message.url);
-  // li.append(a);
   jQuery('#messages').append(html);
-})
+  scrollToBottom();
+});
 
 jQuery('#message-form').on('submit', function (e) {
   e.preventDefault();
