@@ -8,7 +8,7 @@ describe('generateMessage', () => {
     var message = generateMessage(from, text);
 
     expect(message).toInclude({from, text});
-    expect(message.createdAt).toBeA('object');
+    expect(message.createdAt).toBeA('number');
   });
 });
 
@@ -21,6 +21,6 @@ describe('generateLocationMessage', () => {
     var message = generateLocationMessage(from, lat, lng)
 
     expect(message).toInclude({from, url});
-    expect(message.createdAt).toBeA('object');
+    expect(message.createdAt).toBeA('number');
   });
 })
